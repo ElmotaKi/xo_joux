@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .tbl{
+            width: 600px;
+           height: 600px;
+           margin-left: auto;
+           margin-right: auto;
+           border-collapse: collapse;
+        }
+        td{
+            width: 200px; 
+            height: 200px; 
+            font-size:150px;
+             text-align: center;
+             font-family: "Lilita One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <table class="tbl" >
+            <tr>
+                <td id="1" onclick="moi(1)"  style="background-color: greenyellow; 
+                " ></td>
+                <td id="2" onclick="moi(2)"   style="background-color: rgb(236, 72, 72); ""></td>
+                <td id="3"  onclick="moi(3)" style="background-color: greenyellow; "td>
+            </tr>
+            <tr>
+                <td id="4"  onclick="moi(4)" style="background-color: rgb(236, 72, 72); width: 200px; height: 200px; font-size:150px; text-align: center;"></td>
+                <td id="5"  onclick="moi(5)" style="background-color: greenyellow; "></td>
+                <td id="6"  onclick="moi(6)" style="background-color: rgb(236, 72, 72); "></td>
+            </tr>
+            <tr>
+                <td id="7"  onclick="moi(7)" style="background-color: greenyellow; "></td>
+                <td id="8"  onclick="moi(8)" style="background-color: rgb(236, 72, 72);"></td>
+                <td id="9"  onclick="moi(9)" style="background-color: greenyellow;"></td>
+            </tr>
+        </table>
+    </div>
+    <script>
+    
+        function moi(id){
+            if (document.getElementById(id).innerText == "") {
+                document.getElementById(id).innerText="X";
+               
+         
+            }
+            setTimeout(() => {
+                if (checkWinner('X')==true) {
+                    window.location.reload();
+                }
+                
+                computer();
+            }, 100);
+                
+            }
+            
+
+        
+        function computer(){
+            var champvid = [];
+
+            for (var i = 1; i <= 9; i++) {
+                if (document.getElementById(i).innerText == "") {
+                    champvid.push(i);
+                }
+            }
+            
+            var nbchoiser = Math.floor(Math.random() * champvid.length);
+    var champchoiser = champvid[nbchoiser];
+    document.getElementById(champchoiser).innerText = "O";
+    setTimeout(() => {
+                if (checkWinner('0')==true) {
+                    window.location.reload();
+                }
+                
+            }, 100);
+        }
+        function checkWinner(winnernam) {
+            var cells = [];
+            for (var i = 1; i <= 9; i++) {
+                cells.push(document.getElementById(i).innerText);
+            }
+            var winningCombos = [
+                [1, 2, 3], [4, 5, 6], [7, 8, 9],
+                [1, 4, 7], [2, 5, 8], [3, 6, 9],
+                [1, 5, 9], [3, 5, 7]
+            ];
+            for (var i = 0; i < winningCombos.length; i++) {
+                var combo = winningCombos[i];
+                if (cells[combo[0] - 1] !== "" && cells[combo[0] - 1] === cells[combo[1] - 1] && cells[combo[0] - 1] === cells[combo[2] - 1]) {
+                    alert(winnernam + " wins!");
+                    return true;
+                }
+            }
+            var isDraw = true;
+            for (var i = 0; i < cells.length; i++) {
+                if (cells[i] === "") {
+                    isDraw = false;
+                    break;
+                }
+            }
+            if (isDraw) {
+                alert("It's a draw!");
+return true            }
+        }
+    </script>
+</body>
+</html>
